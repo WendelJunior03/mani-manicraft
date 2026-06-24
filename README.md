@@ -62,6 +62,13 @@ src/
 Tudo conversa através do **`worldStore`** (Zustand). Ninguém chama o código do
 outro diretamente. Veja **`SPECS.md`** para a especificação técnica completa.
 
+## 📋 Tarefas (backlog por pessoa)
+
+Cada um tem seu checklist de tarefas em `docs/tarefas/`:
+
+- 🧠 [Japa](./docs/tarefas/TAREFAS-JAPA.md) · 🎨 [Brayan](./docs/tarefas/TAREFAS-BRAYAN.md) · 🎮 [Rodrigo](./docs/tarefas/TAREFAS-RODRIGO.md)
+- 📅 [Visão de time + cronograma](./docs/tarefas/README.md)
+
 ### As 2 regras de ouro
 
 1. **Estado de 60fps (posição/velocidade do player) vive em `useRef`, nunca no Zustand.**
