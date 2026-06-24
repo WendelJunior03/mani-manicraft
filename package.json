@@ -1,0 +1,29 @@
+{
+  "name": "mani-manicraft",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Clone de Minecraft para Web (MVP) — Next.js + React Three Fiber",
+  "packageManager": "bun@1.3.10",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.114.0",
+    "@react-three/fiber": "^8.17.10",
+    "next": "14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.11",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.169.0",
+    "typescript": "^5.6.3"
+  }
+}
