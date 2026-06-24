@@ -11,6 +11,7 @@ Projeto acadêmico (Análise e Desenvolvimento de Sistemas). Equipe: **Brayan**
 ## Como rodar
 
 ```bash
+git clone git@github.com:WendelJunior03/mani-manicraft.git
 bun install
 bun dev
 ```
