@@ -1,4 +1,4 @@
-# 🎨 Tarefas do Brayan — Engenheiro de Gráficos e Mundo
+# 🎨 Tarefas do Bryan — Engenheiro de Gráficos e Mundo
 
 > **Seu papel:** transformar os dados de blocos do `worldStore` em um mundo 3D
 > que aparece na tela, com performance. Você é os "olhos" do jogo.
