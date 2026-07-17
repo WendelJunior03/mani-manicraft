@@ -11,13 +11,15 @@ interface WorldState {
   blocks: Map<string, BlockType>; // chave "x,y,z" -> tipo de bloco
   selectedSlot: number; // slot ativo da hotbar (0..n)
   blocksDestroyed: number; // contador para o HUD
+  blocksPlaced: number; //contador para o HUD
 
   // --- LEITURA (Brayan render / Rodrigo colisão) ---
   getBlock: (x: number, y: number, z: number) => BlockType;
 
   // --- ESCRITA (Rodrigo ao quebrar via raycast) ---
   removeBlock: (x: number, y: number, z: number) => void;
-
+  addBlock: (x: number, y: number, z: number, blockType: BlockType) => void;
+  
   // --- UI (Japa) ---
   setSelectedSlot: (slot: number) => void;
   generateFlatWorld: () => void;
@@ -27,6 +29,7 @@ export const useWorldStore = create<WorldState>((set, get) => ({
   blocks: new Map(),
   selectedSlot: 0,
   blocksDestroyed: 0,
+  blocksPlaced: 0,
 
   getBlock: (x, y, z) => {
     return get().blocks.get(blockKey(x, y, z)) ?? BlockType.AIR;
@@ -41,6 +44,16 @@ export const useWorldStore = create<WorldState>((set, get) => ({
       return existed
         ? { blocks: next, blocksDestroyed: state.blocksDestroyed + 1 }
         : state; // nada mudou -> não dispara re-render
+    });
+  },
+
+  addBlock: (x, y, z, blockType) => {
+    set((state) => {
+      const key = blockKey(x, y, z);
+      if (state.blocks.get(key) === blockType) return state; 
+      const next = new Map(state.blocks); 
+      next.set(key, blockType);
+      return { blocks: next, blocksPlaced: state.blocksPlaced + 1 };
     });
   },
 
