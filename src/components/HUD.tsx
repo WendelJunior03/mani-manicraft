@@ -4,7 +4,7 @@
 // pointer-events:none deixa os cliques atravessarem para o jogo.
 // =====================================================================
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useWorldStore } from '@/store/worldStore';
 import { BlockType } from '@/types/world';
 
@@ -20,6 +20,17 @@ export function HUD() {
   const selectedSlot = useWorldStore((s) => s.selectedSlot);
   const setSelectedSlot = useWorldStore((s) => s.setSelectedSlot);
   const destroyed = useWorldStore((s) => s.blocksDestroyed);
+  const [locked, setLocked] = useState(false);
+
+  useEffect(() => {
+    function onPointerLockChange() {
+      setLocked(document.pointerLockElement !== null);
+    }
+    
+    document.addEventListener('pointerlockchange', onPointerLockChange);
+    return () => document.removeEventListener('pointerlockchange', onPointerLockChange);
+  }, [setLocked])
+
 
   // Teclas 1..n trocam o slot da hotbar.
   useEffect(() => {
@@ -55,7 +66,7 @@ export function HUD() {
       </div>
 
       {/* Dica de controles */}
-      <div
+      { !locked && (<div
         style={{
           position: 'absolute', top: 12, right: 12,
           color: '#fff', fontFamily: 'monospace', fontSize: 12, textAlign: 'right',
@@ -63,7 +74,7 @@ export function HUD() {
         }}
       >
         Clique para travar o mouse · WASD mover · Espaço pular · Clique quebrar
-      </div>
+      </div>)}
 
       {/* Hotbar */}
       <div
