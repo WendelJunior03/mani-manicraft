@@ -4,7 +4,7 @@
 // pointer-events:none deixa os cliques atravessarem para o jogo.
 // =====================================================================
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useWorldStore } from '@/store/worldStore';
 import { BlockType } from '@/types/world';
 
@@ -20,14 +20,6 @@ export function HUD() {
   const selectedSlot = useWorldStore((s) => s.selectedSlot);
   const setSelectedSlot = useWorldStore((s) => s.setSelectedSlot);
   const destroyed = useWorldStore((s) => s.blocksDestroyed);
-
-  // Estado do Pointer Lock. Muda por EVENTO (não por frame) -> pode ir no state.
-  const [locked, setLocked] = useState(false);
-  useEffect(() => {
-    const onChange = () => setLocked(document.pointerLockElement !== null);
-    document.addEventListener('pointerlockchange', onChange);
-    return () => document.removeEventListener('pointerlockchange', onChange);
-  }, []);
 
   // Teclas 1..n trocam o slot da hotbar.
   useEffect(() => {
@@ -62,37 +54,16 @@ export function HUD() {
         Blocos quebrados: {destroyed}
       </div>
 
-      {/* Dica de controles: discreta, só aparece durante o jogo (travado). */}
-      {locked && (
-        <div
-          style={{
-            position: 'absolute', top: 12, right: 12,
-            color: '#fff', fontFamily: 'monospace', fontSize: 12, textAlign: 'right',
-            textShadow: '0 1px 2px rgba(0,0,0,0.8)', opacity: 0.85,
-          }}
-        >
-          WASD mover · Espaço pular · Clique quebrar · Esc destrava
-        </div>
-      )}
-
-      {/* Tela "clique para jogar": overlay central só enquanto NÃO travado. */}
-      {!locked && (
-        <div
-          style={{
-            position: 'absolute', inset: 0,
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            gap: 8, background: 'rgba(0,0,0,0.55)',
-            color: '#fff', fontFamily: 'monospace', textAlign: 'center',
-            textShadow: '0 1px 3px rgba(0,0,0,0.9)',
-          }}
-        >
-          <div style={{ fontSize: 28, fontWeight: 'bold' }}>Clique para jogar</div>
-          <div style={{ fontSize: 14, opacity: 0.9 }}>
-            Trava o mouse · WASD mover · Espaço pular · Clique quebrar · Esc destrava
-          </div>
-        </div>
-      )}
+      {/* Dica de controles */}
+      <div
+        style={{
+          position: 'absolute', top: 12, right: 12,
+          color: '#fff', fontFamily: 'monospace', fontSize: 12, textAlign: 'right',
+          textShadow: '0 1px 2px rgba(0,0,0,0.8)', opacity: 0.85,
+        }}
+      >
+        Clique para travar o mouse · WASD mover · Espaço pular · Clique quebrar
+      </div>
 
       {/* Hotbar */}
       <div
